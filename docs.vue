@@ -332,4 +332,11 @@ export default {
 router.push('category') // router.push to go specific route.
 router.back() // back to previous page.
 
+// pass headers through the axios call.
+    axios.post('http://localhost:8000/api/auth/me',{
+       headers: {
+	Authorization: 'Bearer ' + localStorage.getItem("access_token") 
+    }})
+    //....
+
 </script>
