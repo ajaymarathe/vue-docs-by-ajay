@@ -214,7 +214,7 @@ export default new Vuex.Store({
   
   
   ```
-
+```
 //create forms
 <template>
 	<div>
@@ -347,4 +347,4 @@ router.back() // back to previous page.
     //....
 
 </script>
-
+```
