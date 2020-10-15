@@ -348,3 +348,113 @@ router.back() // back to previous page.
 
 </script>
 ```
+
+## Implement realtime validation with Vee-Validate
+
+```
+<template>
+  <div>
+    <div class="container">
+      <h1>Vee Validate Form</h1>
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form @submit.prevent="handleSubmit(onSubmit)">
+        <ValidationProvider
+          name="Name"
+          rules="required|alpha"
+          v-slot="{ errors }"
+        >
+          <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" v-model="formData.name" />
+            <span class="error">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+
+        <ValidationProvider
+          name="E-mail"
+          rules="required|email"
+          v-slot="{ errors }"
+        >
+          <div class="form-group">
+            <label>Email</label>
+            <input class="form-control" v-model="formData.email" type="email" />
+            <span class="error">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+
+        <ValidationProvider
+          name="Password"
+          rules="required|min:6|max:12"
+          v-slot="{ errors }"
+        >
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              class="form-control"
+              v-model="formData.password"
+              type="password"
+            />
+            <span class="error">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+
+        <ValidationProvider name="Gender" rules="required" v-slot="{ errors }">
+          <div class="form-group">
+            <label>Gender</label>
+            <select class="form-control" v-model="formData.gender">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+            <span class="error">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+        <ValidationProvider
+          name="AcceptTerms"
+          rules="required"
+          v-slot="{ errors }"
+        >
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              v-model="formData.acceptTerms"
+            />
+            <label class="form-check-label">Accept Terms </label>
+            <span class="error">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+        <input class="btn btn-primary mt-2" type="submit" text="submit" />
+      </form>
+    </ValidationObserver>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "VeeValidateForm",
+  data: () => ({
+    formData: {
+      name: "",
+      email: "",
+      password: "",
+      gender: "",
+      acceptTerms: null,
+    },
+  }),
+  methods: {
+    onSubmit() {
+      console.log(this.formData);
+    },
+  },
+};
+</script>
+
+<style scoped>
+.error {
+  color: red;
+}
+</style>
+
+```
